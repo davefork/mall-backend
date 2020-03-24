@@ -1,0 +1,10 @@
+# 配置数据源
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url:
+    username:
+    password:
+    hikari:
+      connection-timeout:
