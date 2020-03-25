@@ -1,10 +1,35 @@
+# 服务器配置
+server:
+  port: 8088
+  tomcat:
+    uri-encoding: UTF-8
+  max-http-header-size: 80KB
+
 # 配置数据源
 spring:
   datasource:
-    type: com.zaxxer.hikari.HikariDataSource
-    driver-class-name: com.mysql.jdbc.Driver
-    url:
-    username:
-    password:
+    type: com.zaxxer.hikari.HikariDataSource  #数据源类型
+    driver-class-name: com.mysql.jdbc.Driver  #mysql驱动
+    url: jdbc:mysql://127.0.0.1:3306/foodieshop?characterEncoding=UTF-8&useSSL=false&useUnicode=true&serverTimezone=UTC
+    username: ted
+    password: 123123
     hikari:
-      connection-timeout:
+      connection-timeout: 30000        # 等待连接池分配连接的最长等待时间(ms)
+      minimum-idle: 5                  # 最小连接数
+      maximum-pool-size: 20            # 最大连接数
+      auto-commit: true                # 自动提交
+      idle-timeout: 600000             # 连接超时时间,超时则被释放(ms)
+      pool-name: DateSourceHikariCP    # 连接池名字
+      max-lifetime: 1800000            # 连接的生命时长(ms)
+      connection-test-query: SELECT 1
+
+# mybatis 配置
+mybatis:
+  type-aliases-package: com.ted.pojo   # 和实体层的映射
+  mapper-locations: classpath:mapper/*.xml  # 和mapper目录的映射,classpath其实就是所有resource编译后所在的目录
+
+# 通用mapper配置
+mapper:
+  mappers: com.ted.my.mapper.MyMapper
+  not-empty: false # 当判断username!=null时是否自动追加username!=''
+  identity: MYSQL
